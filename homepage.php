@@ -7,9 +7,6 @@
 	$stmt->execute();
 	$rows = $stmt->fetchall();
 
-	// foreach($rows as $row ){
-	// 	echo $row["avatar"];
-	// }
 
 	?>
 
@@ -20,21 +17,21 @@
 		<div class="product">
 
 			<?php 
-			foreach($rows as $row){ 
-			echo " 
-			<div class='float'>
-				<div class='name'>" . $row["name"] . "</div>
-				<img src='admin/uploads/avatars/" . $row["avatar"] . "'>
-				<div class='description'><a href='discover.php?do=product&productid=" . $row["productid"] . "'> discover the product ?</a></div>
-				<div class='price'>" . $row["price"] . "</div>
-			</div>";
-
-			// echo "<div>" . $row["description"] . "</div>";
-				}
+				foreach($rows as $row){ 
+					echo " 
+						<div class='float'>
+							<div class='name'>" . $row["name"] . "</div>
+							<img src='admin/uploads/avatars/" . $row["avatar"] . "'>
+							<div class='description'><a href='discover.php?do=product&productid=" . $row["productid"] . "'> discover the product ?</a></div>
+							<div class='price'>" . $row["price"] . "</div>
+						</div>";
+							}
 			?>
+
 			<div class="clear"></div>
+			
 		</div>
-<button class='btn btn-danger'>primary</button>
+		
 	</div>
 
 

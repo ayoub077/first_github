@@ -1,7 +1,7 @@
 <?php 
 
-	$tpl = "includes/templates/";
-	$lay = "layout/css/";
+	$tpl  = "includes/templates/";
+	$lay  = "layout/css/";
 	$func = "includes/functions/";
 
 

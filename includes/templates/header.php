@@ -4,8 +4,8 @@
 		<meta charset="utf-8">
 		<meta name="describe" content="sell clothes">
 		<title></title>
-		<link rel="stylesheet" href="layout/css/bootstrap.css?v=<?php echo time(); ?>">
-    	<link rel="stylesheet" href="layout/css/all.min.css?v=<?php echo time(); ?>">
+		<link rel="stylesheet" href="<?php echo $lay; ?>bootstrap.css?v=<?php echo time(); ?>">
+    	<link rel="stylesheet" href="<?php echo $lay; ?>all.min.css?v=<?php echo time(); ?>">
 		<link rel="stylesheet" href="<?php echo $lay; ?>style.css?v=<?php echo time(); ?>">
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 	    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

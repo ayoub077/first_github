@@ -5,6 +5,10 @@
 
 		include "int.php";
 
+		$stmt = $con->prepare("SELECT * from stock");
+		$stmt->execute();
+		$stocks = $stmt->fetchall();
+
 		$do = "";
 
 		if(isset($_GET["do"])){$do = $_GET["do"];}else{$do = "manage";}
@@ -13,6 +17,8 @@
 			$stmt = $con->prepare("SELECT * from products where subavatar = 0 order by productid desc");
 			$stmt->execute();
 			$rows = $stmt->fetchall();
+
+
 
 
 			?>
@@ -80,6 +86,15 @@
 					<input type="text" name="price">
 					<label>photo</label>
 					<input type="file" name="avatar">
+					<select name='stock_idi'>
+						<optgroup></optgroup>
+						<?php
+							foreach($stocks as $stock){
+								echo "<option value='" . $stock['id'] . "'>" . $stock["name"] . "</option>";
+							}
+						 ?>
+						
+					</select>
 					<input type="submit">
 				</form>
 				
@@ -113,6 +128,7 @@
 				$name = $_POST["name"];
 				$description = $_POST["description"];
 				$price = $_POST["price"];
+				$stock_idi = $_POST["stock_idi"];
 
 				// echo "$avatarname and $avatarsize and $avatartmp and $avatartype and $avatarextension2";
 
@@ -136,17 +152,18 @@
 
 					move_uploaded_file($avatartmp, "uploads\avatars\\" . $avatar);
 
-					$stmt = $con->prepare("INSERT into products(name, description, price, avatar)values(:zname, :zdescription, :zprice, :zavatar)  ");
+					$stmt = $con->prepare("INSERT into products(name, description, price, avatar, stock_idi)values(:zname, :zdescription, :zprice, :zavatar, :zstock_idi)  ");
 					$stmt->execute(array(
 						"zname" => $name,
 						"zdescription" => $description,
 						"zprice" => $price,
-						"zavatar" => $avatar));
+						"zavatar" => $avatar,
+						"zstock_idi" => $stock_idi));
 					$count = $stmt->rowcount();
 
-					$message =  $count . " product insert";
+					$message =  $count . " product insert"; 
 
-					redirect($message, "products.php");
+					// redirect($message, "products.php");
 
 				}
 

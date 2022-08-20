@@ -6,7 +6,8 @@
 
 
 
-		if(isset($_GET["productid"]) && is_numeric($_GET["productid"]) && ($_GET["productid"]) != 0){
+		if(isset($_GET["productid"]) && is_numeric($_GET["productid"]) && ($_GET["productid"]) != 0)
+		{
 
 			$productid = intval($_GET["productid"]);
 
@@ -26,9 +27,11 @@
 
 
 				<div class="page-discover">
+
 					<div class="page-discover-foreach"> 
+
 						<?php 
-						echo 'hello world' . $r['stock_idi'] . $productid;
+
 						foreach($rows as $row){ ?>
 
 								<img src='admin/uploads/avatars/<?php echo $row["avatar"] ?>'> 
@@ -40,13 +43,16 @@
 							<div>
 								<a href="buy.php?productid=<?php echo $productid; ?>&stid=<?php echo $r['stock_idi']; ?>"><span>buy</span> product</a>
 							</div>
+
 						</div>
+
 					</div>
+
 				</div>
 
 			<?php }else{ echo "this id dosent exist";}
 		
-	}else{echo "this link dosent exist";}
+		}else{echo "this link dosent exist";}
 
 
-	 include $tpl . "footer.php"; 
+	include $tpl . "footer.php"; 
