@@ -29,7 +29,6 @@
 		<div class="div1">
 
 			<form action="<?php $_SERVER["PHP_SELF"] ?>" method="POST">
-				<?php echo $stockid; ?>
 				<input type="hidden" name="productid" value="<?php echo $productid ?>">
 				<label>your name</label>
 				<input type="text" name="name">
