@@ -11,8 +11,11 @@
 
 	if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-		$username = $_POST["username"];
-		$password = $_POST["password"];
+		$usernamee = $_POST["username"];
+		$passworde = $_POST["password"];
+
+		$username = filter_var($usernamee, FILTER_SANITIZE_STRING);
+		$password = filter_var($passworde, FILTER_SANITIZE_STRING);
 		$hashedpass = sha1($password);
 
 

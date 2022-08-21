@@ -5,13 +5,19 @@
 
 
 	
-	if(isset($_GET["productid"]) && is_numeric($_GET["productid"])){$productid = intval($_GET["productid"]);}else{$productid = 0;}
+	if(isset($_GET["productid"]) && is_numeric($_GET["productid"])){$productN = intval($_GET["productid"]);}else{$productN = 0;}
 
-	if(isset($_GET["stid"]) && is_numeric($_GET["stid"])){$stockid = intval($_GET["stid"]);}else{$stockid = 0;}
+	if(isset($_GET["stid"]) && is_numeric($_GET["stid"])){$stockN = intval($_GET["stid"]);}else{$stockN = 0;}
+
+	$productid = filter_var($productN, FILTER_SANITIZE_NUMBER_INT);
+	$stockid   = filter_var($stockN, FILTER_SANITIZE_NUMBER_INT);
+
+
+
 
 	$stmt = $con->prepare("SELECT * from products where productid = ?");
 	$stmt->execute(array($productid));
-	$row = $stmt->fetch();
+	$row  = $stmt->fetch();
 
 
 
@@ -39,7 +45,7 @@
 		</div>
 
 		<div class="div2">
-			<img src="admin/uploads/avatars/<?php echo $row["avatar"]; ?>">
+			<img src="admin/uploads/avatars/<?php echo $row["avatar"]; ?>" class="d-lg-block d-none">
 		</div>
 
 	</div>
@@ -50,11 +56,18 @@
 
 		if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-			$name = $_POST["name"];
-			$adress = $_POST["adress"];
-			$phone = $_POST["phone"];
-			$size= $_POST["size"];
-			$productid = $_POST["productid"];
+			$nameF  	 = $_POST["name"];
+			$adressF 	 = $_POST["adress"];
+			$phoneF  	 = $_POST["phone"];
+			$sizeF   	 = $_POST["size"];
+			$productF  = $_POST["productid"];
+
+			$name = filter_var($nameF, FILTER_SANITIZE_STRING);
+			$adress = filter_var($adressF, FILTER_SANITIZE_STRING);
+			$phone = filter_var($phoneF, FILTER_SANITIZE_NUMBER_INT);
+			$size = filter_var($sizeF, FILTER_SANITIZE_STRING);
+			$productid = filter_var($productF, FILTER_SANITIZE_STRING);
+
 
 			
 			$formerrors = array();
@@ -105,4 +118,5 @@
  
 			} 
 		} 
+	include $tpl . "footer.php";
 ?>

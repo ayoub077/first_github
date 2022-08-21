@@ -7,15 +7,21 @@
 
 		$do = "";
 
-		if(isset($_GET["do"])){$do = $_GET["do"];}else{$do = "manage";}
+		if(isset($_GET["do"])){$doo = $_GET["do"];}else{$doo = "manage";}
 
-		if(isset($_GET["done"]) && is_numeric($_GET["done"])){$done = $_GET["done"] ;}
-		else{$done = 0;}
+		$do = filter_var($doo, FILTER_SANITIZE_STRING);
+
+		if(isset($_GET["done"]) && is_numeric($_GET["done"])){$donee = $_GET["done"] ;}
+		else{$donee = 0;}
+
+		$done = filter_var($donee, FILTER_SANITIZE_NUMBER_INT);
 
 		if($do == "manage"){
-			$stmt = $con->prepare("SELECT * from stock order by id desc");
-			$stmt->execute();
-			$rows = $stmt->fetchall();
+			// $stmt = $con->prepare("SELECT * from stock order by id desc");
+			// $stmt->execute();
+			// $rows = $stmt->fetchall();
+
+			$rows = fetch_all_orderBy("*", "stock", "id");
 
 			if($done != 0){
 			$stmt = $con->prepare("SELECT quantity from stock where stock_id = ?");
@@ -89,10 +95,15 @@
 
 				$avatar = $_FILES["avatar"];
 
-				$avatarname = $_FILES["avatar"]["name"];
-				$avatarsize = $_FILES["avatar"]["size"];
-				$avatartmp = $_FILES["avatar"]["tmp_name"];
-				$avatartype = $_FILES["avatar"]["type"];
+				$avatarnamee = $_FILES["avatar"]["name"];
+				$avatarsizee = $_FILES["avatar"]["size"];
+				$avatartmpe = $_FILES["avatar"]["tmp_name"];
+				$avatartypee = $_FILES["avatar"]["type"];
+
+				$avatarname = filter_var($avatarnamee, FILTER_SANITIZE_STRING);
+				$avatarsize = filter_var($avatarsizee, FILTER_SANITIZE_STRING);
+				$avatartmp = filter_var($avatartmpe, FILTER_SANITIZE_STRING);
+				$avatartype = filter_var($avatartypee, FILTER_SANITIZE_STRING);
 
 				$avatarallowedextension = array("jpeg", "jpg", "png", "gif");
 
@@ -105,9 +116,15 @@
 
 
 
-				$name = $_POST["name"];
-				$quantity = $_POST["quantity"];
-				$price = $_POST["price"];
+				$namee = $_POST["name"];
+				$quantitye = $_POST["quantity"];
+				$pricee = $_POST["price"];
+
+				$name = filter_var($namee, FILTER_SANITIZE_STRING);
+				$quantity = filter_var($quantitye, FILTER_SANITIZE_STRING);
+				$price = filter_var($pricee, FILTER_SANITIZE_STRING);
+
+
 
 				// echo "$avatarname and $avatarsize and $avatartmp and $avatartype and $avatarextension2";
 
@@ -158,7 +175,9 @@
 
 		elseif($do == "edit"){
 
-			if(isset($_GET["productid"])){$productid = $_GET["productid"];}else{$productid = 0;}
+			if(isset($_GET["productid"])){$productN = $_GET["productid"];}else{$productN = 0;}
+
+			$productid = filter_var($productN, FILTER_SANITIZE_NUMBER_INT);
 
 			$stmt = $con->prepare("SELECT * from stock where id = ?");
 			$stmt->execute(array($productid));
@@ -186,10 +205,15 @@
 
 			if(isset($_SERVER["REQUEST_METHOD"]) == "POST"){
 
-				$productid = $_POST["productid"];
-				$name = $_POST["name"];
-				$quantity = $_POST["quantity"];
-				$price = $_POST["price"];
+				$producte = $_POST["productid"];
+				$namee = $_POST["name"];
+				$quantitye = $_POST["quantity"];
+				$pricee = $_POST["price"];
+
+				$productid = filter_var($producte, FILTER_SANITIZE_NUMBER_INT);
+				$name = filter_var($namee, FILTER_SANITIZE_STRING);
+				$quantity = filter_var($quantitye, FILTER_SANITIZE_NUMBER_INT);
+				$price = filter_var($pricee, FILTER_SANITIZE_STRING);
 
 
 				$formerrors = array();
@@ -217,13 +241,17 @@
 		}
 
 		elseif($do == "delete"){
-			if(isset($_GET["productid"])){$productid = $_GET["productid"];}
-			else{$productid = 0;}
+			if(isset($_GET["productid"])){$productN = $_GET["productid"];}
+			else{$productN = 0;}
 
-			$stmt = $con->prepare("DELETE from stock where id = :zproductid ");
-			$stmt->bindparam(":zproductid", $productid);
-			$stmt->execute();
-			$count = $stmt->rowcount();
+			$productid = filter_var($productN, FILTER_SANITIZE_NUMBER_INT);
+
+			// $stmt = $con->prepare("DELETE from stock where id = :zproductid ");
+			// $stmt->bindparam(":zproductid", $productid);
+			// $stmt->execute();
+			// $count = $stmt->rowcount();
+
+			$count = delete("stock", "id", $productid);
 
 			$message =  $count . " record delete";
 
@@ -234,8 +262,56 @@
 
 		
 
-		if(isset($_GET["done"]) && is_numeric($_GET["done"])){$done = $_GET["done"] ;}
-		else{$done = 0;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		/*
+		if(isset($_GET["done"]) && is_numeric($_GET["done"])){$donee = $_GET["done"] ;}
+		else{$donee = 0;}
+
+		$done = filter_var($donee, FILTER_SANITIZE_NUMBER_INT);
 
 		if($done != 0){ 
 
@@ -256,7 +332,7 @@
 		if($coun > 0 && $coun1 > 0){ 
 			// header("location: stock.php");
 			echo "<h1>good<h1>";
-		} }
+		} } */
 
 
 	} else{echo "sorry";}

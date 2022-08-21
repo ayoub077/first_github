@@ -4,19 +4,26 @@
 	if(isset($_SESSION['admin'])){
 
 		include "int.php";
-
+		/*
 		$stmt = $con->prepare("SELECT * from stock");
 		$stmt->execute();
-		$stocks = $stmt->fetchall();
+		$stocks = $stmt->fetchall(); */
+
+		// $stocks = fetch_all("*", "stock")
 
 		$do = "";
 
-		if(isset($_GET["do"])){$do = $_GET["do"];}else{$do = "manage";}
+		if(isset($_GET["do"])){$doo = $_GET["do"];}else{$doo = "manage";}
+
+		$do = filter_var($doo, FILTER_SANITIZE_STRING);
 
 		if($do == "manage"){
+			/*
 			$stmt = $con->prepare("SELECT * from products where subavatar = 0 order by productid desc");
 			$stmt->execute();
-			$rows = $stmt->fetchall();
+			$rows = $stmt->fetchall(); */
+
+			$rows = fetch_all_where_orderBy("*", "products", "subavatar", 0, "productid")
 
 
 
@@ -107,12 +114,24 @@
 			if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 
+				// $avatar = $_FILES["avatar"];
+
+				// $avatarname = $_FILES["avatar"]["name"];
+				// $avatarsize = $_FILES["avatar"]["size"];
+				// $avatartmp = $_FILES["avatar"]["tmp_name"];
+				// $avatartype = $_FILES["avatar"]["type"];
+
 				$avatar = $_FILES["avatar"];
 
-				$avatarname = $_FILES["avatar"]["name"];
-				$avatarsize = $_FILES["avatar"]["size"];
-				$avatartmp = $_FILES["avatar"]["tmp_name"];
-				$avatartype = $_FILES["avatar"]["type"];
+				$avatarnamee = $_FILES["avatar"]["name"];
+				$avatarsizee = $_FILES["avatar"]["size"];
+				$avatartmpe = $_FILES["avatar"]["tmp_name"];
+				$avatartypee = $_FILES["avatar"]["type"];
+
+				$avatarname = filter_var($avatarnamee, FILTER_SANITIZE_STRING);
+				$avatarsize = filter_var($avatarsizee, FILTER_SANITIZE_STRING);
+				$avatartmp = filter_var($avatartmpe, FILTER_SANITIZE_STRING);
+				$avatartype = filter_var($avatartypee, FILTER_SANITIZE_STRING);
 
 				$avatarallowedextension = array("jpeg", "jpg", "png", "gif");
 
@@ -125,10 +144,17 @@
 
 
 
-				$name = $_POST["name"];
-				$description = $_POST["description"];
-				$price = $_POST["price"];
-				$stock_idi = $_POST["stock_idi"];
+				$namee = $_POST["name"];
+				$descriptione = $_POST["description"];
+				$pricee = $_POST["price"];
+				$stocke = $_POST["stock_idi"];
+
+
+				$name = filter_var($namee, FILTER_SANITIZE_STRING);
+				$description = filter_var($descriptione, FILTER_SANITIZE_STRING);
+				$price = filter_var($pricee, FILTER_SANITIZE_STRING);
+				$stock_idi = filter_var($stocke, FILTER_SANITIZE_NUMBER_INT);
+
 
 				// echo "$avatarname and $avatarsize and $avatartmp and $avatartype and $avatarextension2";
 
@@ -180,7 +206,9 @@
 
 		elseif($do == "edit"){
 
-			if(isset($_GET["productid"])){$productid = $_GET["productid"];}else{$productid = 0;}
+			if(isset($_GET["productid"])){$productN = $_GET["productid"];}else{$productN = 0;}
+
+			$productid = filter_var($productN, FILTER_SANITIZE_NUMBER_INT);
 
 			$stmt = $con->prepare("SELECT * from products where productid = ?");
 			$stmt->execute(array($productid));
@@ -217,12 +245,19 @@
 
 			if(isset($_SERVER["REQUEST_METHOD"]) == "POST"){
 
+
 				$avatar = $_FILES["avatar"];
 
-				$avatarname = $_FILES["avatar"]["name"];
-				$avatarsize = $_FILES["avatar"]["size"];
-				$avatartmp  = $_FILES["avatar"]["tmp_name"];
-				$avatartype = $_FILES["avatar"]["type"];
+				$avatarnamee = $_FILES["avatar"]["name"];
+				$avatarsizee = $_FILES["avatar"]["size"];
+				$avatartmpe = $_FILES["avatar"]["tmp_name"];
+				$avatartypee = $_FILES["avatar"]["type"];
+
+				$avatarname = filter_var($avatarnamee, FILTER_SANITIZE_STRING);
+				$avatarsize = filter_var($avatarsizee, FILTER_SANITIZE_STRING);
+				$avatartmp = filter_var($avatartmpe, FILTER_SANITIZE_STRING);
+				$avatartype = filter_var($avatartypee, FILTER_SANITIZE_STRING);
+
 
 				$avatarallowextension = array("jpeg", "jpg", "png", "gif");
 
@@ -232,10 +267,20 @@
 				$avatarextension2 = end($avatarextension1);
 				$avatarextension3 = strtolower($avatarextension2);
 
-				$productid = $_POST["productid"];
-				$name = $_POST["name"];
-				$description = $_POST["description"];
-				$price = $_POST["price"];
+
+
+				$producte = $_POST["productid"];
+				$namee = $_POST["name"];
+				$descriptione = $_POST["description"];
+				$pricee = $_POST["price"];
+				
+
+				$productid = filter_var($producte, FILTER_SANITIZE_STRING);
+				$name = filter_var($namee, FILTER_SANITIZE_STRING);
+				$description = filter_var($descriptione, FILTER_SANITIZE_STRING);
+				$price = filter_var($pricee, FILTER_SANITIZE_STRING);
+				
+
 
 
 				$formerrors = array();
@@ -273,7 +318,9 @@
 
 		elseif($do == "picture"){
 
-			if(isset($_GET["pic-id"]) && is_numeric($_GET["pic-id"])){$picid = intval($_GET["pic-id"]);}else{$picid = 0;}
+			if(isset($_GET["pic-id"]) && is_numeric($_GET["pic-id"])){$picide = intval($_GET["pic-id"]);}else{$picide = 0;}
+
+			$picid = filter_var($picide, FILTER_SANITIZE_STRING);
 
 			
 			?>
@@ -297,13 +344,19 @@
 				
 				$avatar = $_FILES["avatar"];
 
-				$avatarname = $_FILES["avatar"]["name"];
-				$avatarsize = $_FILES["avatar"]["size"];
-				$avatartmp  = $_FILES["avatar"]["tmp_name"];
-				$avatartype = $_FILES["avatar"]["type"]; 
-				
+				$avatarnamee = $_FILES["avatar"]["name"];
+				$avatarsizee = $_FILES["avatar"]["size"];
+				$avatartmpe = $_FILES["avatar"]["tmp_name"];
+				$avatartypee = $_FILES["avatar"]["type"];
 
-				$picid = $_POST["picid"];
+				$avatarname = filter_var($avatarnamee, FILTER_SANITIZE_STRING);
+				$avatarsize = filter_var($avatarsizee, FILTER_SANITIZE_STRING);
+				$avatartmp = filter_var($avatartmpe, FILTER_SANITIZE_STRING);
+				$avatartype = filter_var($avatartypee, FILTER_SANITIZE_STRING);
+
+				$picide = $_POST["picid"];
+
+				$picid = filter_var($picide, FILTER_SANITIZE_NUMBER_INT);
 
 				//echo $picid;
 				
@@ -349,11 +402,15 @@
 
 		elseif($do == "show"){
 
-			if(isset($_GET["productid"]) && is_numeric($_GET["productid"])){$productid = intval($_GET["productid"]);}else{$productid = -1 ;}
+			if(isset($_GET["productid"]) && is_numeric($_GET["productid"])){$productN = intval($_GET["productid"]);}else{$productN = -1 ;}
 
+			$productid = filter_var($productN, FILTER_SANITIZE_NUMBER_INT);
+			/*
 			$stmt = $con->prepare("SELECT * from products where subavatar = ?");
 			$stmt->execute(array($productid));
-			$rows = $stmt->fetchall();
+			$rows = $stmt->fetchall(); */
+
+			$rows = fetch_all_where("*", "products", "subavatar", $productid);
 
 			?>
 			<div class="page-products-show">
@@ -368,13 +425,17 @@
 		<?php }
 
 		elseif($do == "delete"){
-			if(isset($_GET["productid"])){$productid = $_GET["productid"];}
-			else{$productid = 0;}
+			if(isset($_GET["productid"])){$productN = $_GET["productid"];}
+			else{$productN = 0;}
 
-			$stmt = $con->prepare("DELETE from products where productid = :zproductid ");
-			$stmt->bindparam(":zproductid", $productid);
-			$stmt->execute();
-			$count = $stmt->rowcount();
+			$productid = filter_var($productN, FILTER_SANITIZE_NUMBER_INT);
+
+			// $stmt = $con->prepare("DELETE from products where productid = :zproductid ");
+			// $stmt->bindparam(":zproductid", $productid);
+			// $stmt->execute();
+			// $count = $stmt->rowcount();
+
+			$count = delete("products", "productid", $productid);
 
 			$message =  $count . " record delete";
 
