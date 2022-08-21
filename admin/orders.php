@@ -5,27 +5,12 @@ if(isset($_SESSION["admin"])){
 
 	include "int.php";
 
-	// $stmt = $con->prepare("SELECT * from orders ORDER BY orderid desc");
-	// $stmt->execute();
-	// $rows = $stmt->fetchall();
-
-	// $stmt = $con->prepare("SELECT quantity from stock");
-	// $stmt->execute();
-	// $feild = $stmt->fetch();
-
 	$stmt = $con->prepare("SELECT orders.*, products. name
 				from orders 
 				inner join products on products.productid = orders.order_id");
 	$stmt->execute();
 	$rowsss = $stmt->fetchall();
 
-	// echo "hello " . $rowsss["name"];
-
-	?>
-
-	
-	
-<?php 
 $do = "";
 
 if(isset($_GET["ord"])){$doo = $_GET["ord"];} else{$doo = "manage";}
@@ -47,7 +32,7 @@ if($do == "manage"){?>
 			</tr> 
 			
 				<?php 
-				// foreach($rows as $row ){  
+				
 					foreach($rowsss as $rowss){
 					echo " 
 						<tr>
@@ -62,19 +47,12 @@ if($do == "manage"){?>
 							</td>
 						</tr> " ;
 
-						
-
-			
-			 // } 
 			}
 			?>
 
 
 
 		</table>
-	</div>
-	<div>
-		<?php //echo $feild["quantity"] ?>
 	</div>
 }
 <?php }
@@ -99,33 +77,18 @@ elseif($do == "done"){
 		$stmt->execute(array($feild["quantity"] - 1 , $doneid));
 		$row = $stmt->rowCount();
 
-		// $stmt = $con->prepare("DELETE from orders where orderid = :orderid");
-		// $stmt->bindparam(":orderid", $ordid);
-		// $stmt->execute();
-		// $count = $stmt->rowcount();
-
 		$count = delete("orders", "orderid", $ordid);
 
 		echo $ordid;
-
-
-			 	// ECHO $row . "<br>";
-
-			 	// echo "<h1>" . $feild["quantity"] . "</h1>";
 }
 
 elseif($do == "delete"){
-	// echo "hello";
+	
 	if(isset($_GET["orderid"]) && is_numeric($_GET["orderid"])){$order = $_GET["orderid"];}else{
 			$order = 0;
 		}
 
 		$orderid = filter_var($order, FILTER_SANITIZE_NUMBER_INT);
-		/*
-		$stmt = $con->prepare("DELETE from orders where orderid = :orderid");
-		$stmt->bindparam(":orderid", $orderid);
-		$stmt->execute();
-		$count = $stmt->rowcount(); */
 
 		$count = delete("orders", "orderid", $orderid);
 
@@ -136,38 +99,6 @@ elseif($do == "delete"){
 }
 
 else{echo "sorry, there is no do";}
-
-
-	// 	if(isset($_GET["orderid"]) && is_numeric($_GET["orderid"])){$orderid = $_GET["orderid"];}else{
-	// 		$orderid = 0;
-	// 	}
-
-	// 	$stmt = $con->prepare("DELETE from orders where orderid = :orderid");
-	// 	$stmt->bindparam(":orderid", $orderid);
-	// 	$stmt->execute();
-	// 	$count = $stmt->rowcount();
-
-	// 	if($count > 0){ 
-	// 	header("location: orders.php");
-	// 	exit();
-	// }
-
-	// if(isset($_GET["done"]) && is_numeric($_GET["done"])){$done = $_GET["done"];}else{
-	// 		$done = 0;
-	// 	}
-
-	// 	echo $done;
-	// 	$stmt = $con->prepare("SELECT quantity from stock where id = ?");
-	// 		$stmt->execute(array($done));
-	// 		$feild = $stmt->fetch();
-
-	// 	$stmt = $con->prepare("UPDATE stock set quantity = ?  where stock_id = ? LIMIT 1");
-	// 		 	$stmt->execute(array($feild["quantity"] - 1 , $done));
-	// 		 	$row = $stmt->rowCount();
-
-	// 		 	echo "<h1>" . $feild["quantity"] . "</h1>";
-
-
 
 	$do = "";
 
@@ -180,30 +111,7 @@ else{echo "sorry, there is no do";}
 
 		echo "hello world";
 
-		// if(isset($_GET["done"]) && is_numeric($_GET["done"])){$done = $_GET["done"];}else{
-		// 	$done = 0;
-		// }
-
-		// echo $done;
-		// $stmt = $con->prepare("SELECT quantity from stock where id = ?");
-		// 	$stmt->execute(array($done));
-		// 	$feild = $stmt->fetch();
-
-		// $stmt = $con->prepare("UPDATE stock set quantity = ?  where stock_id = ? LIMIT 1");
-		// 	 	$stmt->execute(array($feild["quantity"] - 1 , $done));
-		// 	 	$row = $stmt->rowCount();
-
-		// 	 	echo "<h1>" . $feild["quantity"] . "</h1>";
 	}
-
-
-	
-	// if(isset($_GET["done"]) && is_numeric($_GET["done"])){$order = 1;}else{$order = 0;}
-
-	// $stmt = $con->prepare("UPDATE stock set quantity = ? ");
-	// $stmt->execute(array($feild['quantity'] - 1)); 
-	
-
 }
 else{ header("location: index.php");
 		exit();

@@ -4,10 +4,6 @@
 	if(isset($_SESSION['admin'])){
 
 		include "int.php";
-		/*
-		$stmt = $con->prepare("SELECT * from stock");
-		$stmt->execute();
-		$stocks = $stmt->fetchall(); */
 
 		$stocks = fetch_all("*", "stock");
 
@@ -18,15 +14,8 @@
 		$do = filter_var($doo, FILTER_SANITIZE_STRING);
 
 		if($do == "manage"){
-			/*
-			$stmt = $con->prepare("SELECT * from products where subavatar = 0 order by productid desc");
-			$stmt->execute();
-			$rows = $stmt->fetchall(); */
 
 			$rows = fetch_all_where_orderBy("*", "products", "subavatar", 0, "productid")
-
-
-
 
 			?>
 
@@ -104,7 +93,6 @@
 									  <option value='" . $stock['id'] . "'>" . $stock["name"] . "</option>";
 							}
 						 ?>
-						 <!-- </optgroup> -->
 						
 					</select>
 					<input type="submit">
@@ -118,13 +106,6 @@
 
 			if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-
-				// $avatar = $_FILES["avatar"];
-
-				// $avatarname = $_FILES["avatar"]["name"];
-				// $avatarsize = $_FILES["avatar"]["size"];
-				// $avatartmp = $_FILES["avatar"]["tmp_name"];
-				// $avatartype = $_FILES["avatar"]["type"];
 
 				$avatar = $_FILES["avatar"];
 
@@ -140,12 +121,10 @@
 
 				$avatarallowedextension = array("jpeg", "jpg", "png", "gif");
 
-				// $avatarextension = strtolower(end(explode(".", $_FILES["avatar"]["name"])));
 
 				$avatarextension = explode(".", $_FILES["avatar"]["name"]); 
 				$avatarextension1 = end($avatarextension);
 			    $avatarextension2 = strtolower($avatarextension1);
-			    // $avatarextension1 = end($avatarextension2);
 
 
 
@@ -160,10 +139,6 @@
 				$price = filter_var($pricee, FILTER_SANITIZE_STRING);
 				$stock_idi = filter_var($stocke, FILTER_SANITIZE_NUMBER_INT);
 
-
-				// echo "$avatarname and $avatarsize and $avatartmp and $avatartype and $avatarextension2";
-
-				// echo $name . $description . $price;
 
 				$formerrors = array();
 
@@ -269,7 +244,6 @@
 
 				$avatarallowextension = array("jpeg", "jpg", "png", "gif");
 
-				//$avatarextension = strtolower(end(explode(".", $_FILES["avatar"]["name"])));
 
 				$avatarextension1 = explode(".", $avatarname);
 				$avatarextension2 = end($avatarextension1);
@@ -297,7 +271,7 @@
 				if(empty($description)){$formerrors[] = "descrioption cant be empty";}
 				if(empty($price)){$formerrors[] = "price cant be empty";}
 				if(! empty($avatarname) && ! in_array($avatarextension3, $avatarallowextension)){$formerrors[] = "this extension is not allowed";}
-				//if(empty($avatarname)){$formerrors[] = "photo is required";}
+
 				if($avatarsize > 4194304){$formerrors[] = "avatar can not be larger than <strong>4MB</strong>";}
 
 				foreach($formerrors as $error){
@@ -366,7 +340,6 @@
 
 				$picid = filter_var($picide, FILTER_SANITIZE_NUMBER_INT);
 
-				//echo $picid;
 				
 				$avatarallowedextension = array("jpeg", "jpg", "png", "gif");
 
@@ -399,11 +372,7 @@
 
 					redirect($message, "products.php");
 
-
-
 				} 
-
-
 				
 			}else{echo "sorry, you cant";}
 		}
@@ -413,10 +382,7 @@
 			if(isset($_GET["productid"]) && is_numeric($_GET["productid"])){$productN = intval($_GET["productid"]);}else{$productN = -1 ;}
 
 			$productid = filter_var($productN, FILTER_SANITIZE_NUMBER_INT);
-			/*
-			$stmt = $con->prepare("SELECT * from products where subavatar = ?");
-			$stmt->execute(array($productid));
-			$rows = $stmt->fetchall(); */
+			
 
 			$rows = fetch_all_where("*", "products", "subavatar", $productid);
 
@@ -438,10 +404,6 @@
 
 			$productid = filter_var($productN, FILTER_SANITIZE_NUMBER_INT);
 
-			// $stmt = $con->prepare("DELETE from products where productid = :zproductid ");
-			// $stmt->bindparam(":zproductid", $productid);
-			// $stmt->execute();
-			// $count = $stmt->rowcount();
 
 			$count = delete("products", "productid", $productid);
 

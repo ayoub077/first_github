@@ -32,11 +32,6 @@
 	 				<div class='div1'>" . $latest["name"] . "</div> 
 	 				<div class='div2'><img src='uploads/avatars/" . $latest["avatar"] . "'></div><br>";}
 
-	 			
-
-	 				// $stmt = $con->prepare("SELECT name from products order by productid desc limit 3");
-	 				// $stmt->execute();
-	 				// $stmt->fetchall();
 	 			?>
 	 			<div class="clear"></div>
 	 		</div>
@@ -57,9 +52,7 @@
 	 	<div class="clear"></div>
 		
 
-		<?php /// include 'logout.php';
-
-		// echo "<a href='logout.php'>logout<a>";
+		<?php 
 
 	 }else{
 		 header("location: index.php");

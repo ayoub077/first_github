@@ -17,9 +17,6 @@
 		$done = filter_var($donee, FILTER_SANITIZE_NUMBER_INT);
 
 		if($do == "manage"){
-			// $stmt = $con->prepare("SELECT * from stock order by id desc");
-			// $stmt->execute();
-			// $rows = $stmt->fetchall();
 
 			$rows = fetch_all_orderBy("*", "stock", "id");
 
@@ -107,14 +104,11 @@
 
 				$avatarallowedextension = array("jpeg", "jpg", "png", "gif");
 
-				// $avatarextension = strtolower(end(explode(".", $_FILES["avatar"]["name"])));
 
 				$avatarextension = explode(".", $_FILES["avatar"]["name"]); 
 				$avatarextension1 = end($avatarextension);
 			    $avatarextension2 = strtolower($avatarextension1);
-			    // $avatarextension1 = end($avatarextension2);
-
-
+			    
 
 				$namee = $_POST["name"];
 				$quantitye = $_POST["quantity"];
@@ -124,11 +118,6 @@
 				$quantity = filter_var($quantitye, FILTER_SANITIZE_STRING);
 				$price = filter_var($pricee, FILTER_SANITIZE_STRING);
 
-
-
-				// echo "$avatarname and $avatarsize and $avatartmp and $avatartype and $avatarextension2";
-
-				// echo $name . $description . $price;
 
 				$formerrors = array();
 
@@ -246,10 +235,6 @@
 
 			$productid = filter_var($productN, FILTER_SANITIZE_NUMBER_INT);
 
-			// $stmt = $con->prepare("DELETE from stock where id = :zproductid ");
-			// $stmt->bindparam(":zproductid", $productid);
-			// $stmt->execute();
-			// $count = $stmt->rowcount();
 
 			$count = delete("stock", "id", $productid);
 
@@ -258,81 +243,7 @@
 			redirect($message, "stock.php");
 		}
 
-		else{echo "oops, there is no such page $do";} 
-
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		/*
-		if(isset($_GET["done"]) && is_numeric($_GET["done"])){$donee = $_GET["done"] ;}
-		else{$donee = 0;}
-
-		$done = filter_var($donee, FILTER_SANITIZE_NUMBER_INT);
-
-		if($done != 0){ 
-
-
-			// $stmt = $con->prepare("SELECT quantity from stock where stock_id = ?");
-			// $stmt->execute(array($done));
-			// $feild = $stmt->fetch();
-			// echo $done;
-		// $stmt = $con->prepare("UPDATE stock set quantity = ? where stock_id = ? LIMIT 1");
-		// $stmt->execute(array($feild["quantity"] - 1, $done));
-		// $coun = $stmt->rowcount();
-
-		$stmt1 = $con->prepare("DELETE from orders where orderid = :zorderid");
-		$stmt1->bindparam(":zorderid", $done);
-		$stmt1->execute();
-		$coun1 = $stmt->rowcount();
-
-		if($coun > 0 && $coun1 > 0){ 
-			// header("location: stock.php");
-			echo "<h1>good<h1>";
-		} } */
+		else{echo "oops, there is no such page $do";}
 
 
 	} else{echo "sorry";}
