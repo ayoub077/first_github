@@ -9,7 +9,7 @@
 		$stmt->execute();
 		$stocks = $stmt->fetchall(); */
 
-		// $stocks = fetch_all("*", "stock")
+		$stocks = fetch_all("*", "stock");
 
 		$do = "";
 
@@ -33,7 +33,8 @@
 			<div class="page-products-manage">
 
 					<h1>welcome in manage page</h1>
-
+				<a href="?do=add" class="add"><input type="button" value="+ add new product"></a>
+				
 				<table>
 					<tr>
 						<td>#id</td>
@@ -94,12 +95,16 @@
 					<label>photo</label>
 					<input type="file" name="avatar">
 					<select name='stock_idi'>
-						<optgroup></optgroup>
+						<optgroup label="stock"></optgroup>
+						<option>---</option>
 						<?php
 							foreach($stocks as $stock){
-								echo "<option value='" . $stock['id'] . "'>" . $stock["name"] . "</option>";
+
+								echo "
+									  <option value='" . $stock['id'] . "'>" . $stock["name"] . "</option>";
 							}
 						 ?>
+						 <!-- </optgroup> -->
 						
 					</select>
 					<input type="submit">
@@ -167,6 +172,7 @@
 				if(empty($price)){$formerrors[] = "price cant be empty";}
 				if(! empty($avatarname) && ! in_array($avatarextension2, $avatarallowedextension)){$formerrors[] = "this extension is <bold>not allowed</bold";}
 				if(empty($avatarname)){$formerrors[] = "avatar is <bold>required</bold>";}
+				if(empty($stock_idi) || $stock_idi == "---"){$formerrors[] = "please choose <bold>stock</bold>";}
 
 				if($avatarsize > 4194304){$formerrors[] = "avatar cant be larger than <strong>4MB</strong";}
 
@@ -177,6 +183,8 @@
 					$avatar = rand(0, 100000) . "_" . $avatarname;
 
 					move_uploaded_file($avatartmp, "uploads\avatars\\" . $avatar);
+
+					
 
 					$stmt = $con->prepare("INSERT into products(name, description, price, avatar, stock_idi)values(:zname, :zdescription, :zprice, :zavatar, :zstock_idi)  ");
 					$stmt->execute(array(
@@ -189,9 +197,9 @@
 
 					$message =  $count . " product insert"; 
 
-					// redirect($message, "products.php");
+					redirect($message, "products.php");
 
-				}
+				}else{redirect("", "products.php?do=add");}
 
 
 

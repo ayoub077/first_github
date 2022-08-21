@@ -73,18 +73,19 @@
 								<?php 
 								// echo 'hello world' . $r['stock_idi'] . $productid;
 								foreach($rows as $row){ ?>
-									<div class="forimg col-lg-12">
+									<div class="forimg col-lg-12 ">
 										<img src='admin/uploads/avatars/<?php echo $row["avatar"] ?>' class="col-md-2 col-6 ">
 									</div> 
 									
 										<?php ;} ?>
 										<div class="clear"></div>
-								<div class="buy col-2 text-center">
+								<div class="buy col-md-2 col-sm-3 text-center">
 									
 									<div>
 										<a href="buy.php?productid=<?php echo $productid; ?>&stid=<?php echo $r['stock_idi']; ?>">
 											<!-- <span>buy</span> -->
-											buy product</a>
+											buy product
+										</a>
 									</div>
 								</div>
 							</div>

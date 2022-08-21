@@ -418,6 +418,7 @@ footer .copyright{
 body{
 	margin:0;
 	padding:0;
+	min-height:100vh;
 }
 
 a{
@@ -559,6 +560,8 @@ header div .div1{
 footer{
 	background-color:#222222;
 	color:white;
+	position:sticky;
+	top:100%
 }
 
 footer .content{
@@ -571,8 +574,9 @@ footer .div1 h1{
 	text-transform:capitalize;
 	background-color:black;
 	/*max-width:39.7%;*/
-	padding:1%;
-	border-radius:7%;
+	padding:3%;
+	/*border-radius:7%;*/
+	border-radius:7px;
 }
 
 footer .content .div1 span{
@@ -653,16 +657,20 @@ footer .copyright{
 
 .page-discover-foreach img{
 	margin:3%;
-	/*width:200PX;*/
-	/*height:300PX;*/
+	/*max-width:600PX;*/
+	/*max-height:500PX;*/
 	float:left;
 	/*border-radius:50%;*/
+	/*width:100%;*/
 }
 
 .forimg{
 	/*display:flex;*/
 	/*float:left;*/
 	/*margin-left:2%;*/
+	/*width:300PX;*/
+	/*height:300PX;*/
+	background-color:black;
 }
 
 .page-discover .buy{
