@@ -79,7 +79,7 @@ elseif($do == "done"){
 
 		$count = delete("orders", "orderid", $ordid);
 
-		echo $ordid;
+		header("location: orders.php");
 }
 
 elseif($do == "delete"){

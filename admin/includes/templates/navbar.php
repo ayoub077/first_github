@@ -8,7 +8,7 @@
 		</span>
 	</ul>
 	<ul class="ul2">
-		<a href="../homepage.php" target="_blank"><li>visit website |</li></a>
+		<a href="../index.php" target="_blank"><li>visit website |</li></a>
 		<!--<li>sara |</li>-->
 		<a href="<?php echo "logout.php" ?>"><li> logout</li></a>
 	</ul>

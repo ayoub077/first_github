@@ -19,11 +19,11 @@
 				foreach($rows as $row){ 
 
 				echo " 
-				<div class='float col-lg-4 col-12'>
+				<div class='float col-md-3 col-10'>
 					
 					<div class='name'>" . $row["name"] . "</div>
 						
-							<img src='admin/uploads/avatars/" . $row["avatar"] . "' class='col-lg-8 col-8'>
+							<img src='admin/uploads/avatars/" . $row["avatar"] . "' class='col-lg-6 col-5'>
 						
 					<div class='description mt-3'><a href='discover.php?do=product&productid=" . $row["productid"] . "'> discover the product ?</a></div>
 					<div class='price mb-2'>" . $row["price"] . "</div>

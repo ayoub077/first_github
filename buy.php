@@ -110,7 +110,7 @@
 								<div class="div">thank you for buy our product, we will call you.</div>
 							</div>
 						<?php 
-						 header("refresh:2;url=homepage.php");
+						 header("refresh:2;url=index.php");
 						 exit(); 
 						}
 				}
