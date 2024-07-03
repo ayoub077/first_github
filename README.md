@@ -1,3 +1,3 @@
 # first_github
 ##describe
-it my first github
+it my first project to github
